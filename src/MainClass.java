@@ -8,21 +8,35 @@ import javax.swing.JSlider;
 public class MainClass {
   public static void main(String args[]) throws Exception {
 	  
-	  char symb = 'a';
+	  int val1 = 0;
+	  int val2 = 0;
+	  char oper;
+	  Boolean flagError = false;
+	  String str = "26/854";
+	  
+	  for (char ch : str.toCharArray()) {
+		  
+		  if ( Character.isDigit(ch) ) {
+			  System.out.println(ch);
+			  val1 = Integer.parseInt(String.valueOf(val1) + ch);
+		  }
+		  else break;
+		  
+	  } 
+	  
+	  System.out.println(val1);
 	  
 	  
-	  Integer asd = new Integer(48);
-	  System.out.println(asd);
+	  	  
 	  
-	  System.out.println(  symb + " -> " + (int)symb );
 	  
+	  //char symb = 'a';
+	  //Integer asd = new Integer(48);
+	  //System.out.println(asd);
+	  //System.out.println(  symb + " -> " + (int)symb );
 	  //char symbUp = Character.toUpperCase(symb);
-	  char symbUp = (char) ( (int)symb & 0x5f );
-	  System.out.println( symbUp + " -> " + (int)symbUp );
-	  
-	  
-	  
-	  
+	  //char symbUp = (char) ( (int)symb & 0x5f );
+	  //System.out.println( symbUp + " -> " + (int)symbUp );
 	  //char upperChar = 'l' & 0x5f
 	  //char lowerChar = 'L' ^ 0x20
 	  
