@@ -12,21 +12,24 @@ public class MainClass {
 	  int val2 = 0;
 	  char oper = ' ';
 	  Boolean flagError = false;
-	  String str = " 93 + 0 ";
+	  String str = " 48 * 2 ";
 	  
 	  if ( str.length() == 0) {
 		  // выход
 		  
 	  }
 	    
-	  
+	  // чистка от пробелов
 	  str = str.replace(" ", "");
+	  
 	  // первое значение
+	  boolean chkStrFill = false;
 	  for (char ch : str.toCharArray()) {
 		  
 		  if ( Character.isDigit(ch) ) {
 			  System.out.println(ch);
 			  val1 = Integer.parseInt(String.valueOf(val1) + ch);
+			  chkStrFill = true;
 		  }
 		  else break;
 		  
@@ -34,7 +37,7 @@ public class MainClass {
 	  
 	  System.out.println(val1);
 	  
-	  if (val1 == 0) { // решить проблему 0 значения 
+	  if ( ! chkStrFill ) {  
 		  System.out.println("Error line - 1");
 		  flagError = true;
 	  }
@@ -72,7 +75,7 @@ public class MainClass {
 	  
 	  System.out.println(val2);
 	  
-	  if (val2 == 0) { // и на ноль (запрет деления) проверка заодно   // решить проблему 0 значения не при делении 
+	  if (val2 == 0 && oper == '/' ) { // заполнение и деление на ноль заодно проверим   
 		  System.out.println("Error line - 2");
 		  flagError = true;
 	  }
