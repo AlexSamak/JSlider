@@ -10,10 +10,18 @@ public class MainClass {
 	  
 	  int val1 = 0;
 	  int val2 = 0;
-	  char oper;
+	  char oper = ' ';
 	  Boolean flagError = false;
-	  String str = "26/854";
+	  String str = " 93 + 0 ";
 	  
+	  if ( str.length() == 0) {
+		  // выход
+		  
+	  }
+	    
+	  
+	  str = str.replace(" ", "");
+	  // первое значение
 	  for (char ch : str.toCharArray()) {
 		  
 		  if ( Character.isDigit(ch) ) {
@@ -26,8 +34,67 @@ public class MainClass {
 	  
 	  System.out.println(val1);
 	  
+	  if (val1 == 0) { // решить проблему 0 значения 
+		  System.out.println("Error line - 1");
+		  flagError = true;
+	  }
 	  
-	  	  
+	  
+	  // команда
+	  int indexOper = 0;
+	  for (char ch : str.toCharArray()) {
+		  
+		  indexOper++;
+		  if ( ! Character.isDigit(ch) ) {
+			  System.out.println(ch);
+			  oper = ch;
+			  break;
+		  }
+		  
+	  } 
+	  
+	  if (oper != '-' && oper != '+' && oper != '*' && oper != '/') {
+		  
+		  System.out.println("Error line!");
+		  
+	  }
+	  
+	  // второе значение
+	  for (int i = indexOper; i < str.length(); i++) {
+		  char ch = str.charAt(i);
+		  if ( Character.isDigit(ch) ) {
+			  System.out.println(ch);
+			  val2 = Integer.parseInt(String.valueOf(val2) + ch);
+		  }
+		  else break;
+		  
+	  }
+	  
+	  System.out.println(val2);
+	  
+	  if (val2 == 0) { // и на ноль (запрет деления) проверка заодно   // решить проблему 0 значения не при делении 
+		  System.out.println("Error line - 2");
+		  flagError = true;
+	  }
+	  
+	  
+	  // вычисляем
+	  switch (oper) {
+	  	case '+':
+	  		System.out.println(val1 + val2);
+	  		break;
+	  	case '-':
+	  		System.out.println(val1 - val2);
+	  		break;
+	  	case '/':
+	  		System.out.println(val1 / val2);
+	  		break;
+	  	case '*':
+	  		System.out.println(val1 * val2);
+	  		break;
+	  	default:
+	  		break;
+	}
 	  
 	  
 	  //char symb = 'a';
