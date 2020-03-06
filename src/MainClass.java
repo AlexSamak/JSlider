@@ -8,96 +8,10 @@ import javax.swing.JSlider;
 public class MainClass {
   public static void main(String args[]) throws Exception {
 	  
-	  int val1 = 0;
-	  int val2 = 0;
-	  char oper = ' ';
-	  Boolean flagError = false;
-	  String str = " 48 * 2 ";
 	  
-	  if ( str.length() == 0) {
-		  // выход
-		  
-	  }
-	    
-	  // чистка от пробелов
-	  str = str.replace(" ", "");
-	  
-	  // первое значение
-	  boolean chkStrFill = false;
-	  for (char ch : str.toCharArray()) {
-		  
-		  if ( Character.isDigit(ch) ) {
-			  System.out.println(ch);
-			  val1 = Integer.parseInt(String.valueOf(val1) + ch);
-			  chkStrFill = true;
-		  }
-		  else break;
-		  
-	  } 
-	  
-	  System.out.println(val1);
-	  
-	  if ( ! chkStrFill ) {  
-		  System.out.println("Error line - 1");
-		  flagError = true;
-	  }
+	  splitLine("15 / 5");
 	  
 	  
-	  // команда
-	  int indexOper = 0;
-	  for (char ch : str.toCharArray()) {
-		  
-		  indexOper++;
-		  if ( ! Character.isDigit(ch) ) {
-			  System.out.println(ch);
-			  oper = ch;
-			  break;
-		  }
-		  
-	  } 
-	  
-	  if (oper != '-' && oper != '+' && oper != '*' && oper != '/') {
-		  
-		  System.out.println("Error line!");
-		  
-	  }
-	  
-	  // второе значение
-	  for (int i = indexOper; i < str.length(); i++) {
-		  char ch = str.charAt(i);
-		  if ( Character.isDigit(ch) ) {
-			  System.out.println(ch);
-			  val2 = Integer.parseInt(String.valueOf(val2) + ch);
-		  }
-		  else break;
-		  
-	  }
-	  
-	  System.out.println(val2);
-	  
-	  if (val2 == 0 && oper == '/' ) { // заполнение и деление на ноль заодно проверим   
-		  System.out.println("Error line - 2");
-		  flagError = true;
-	  }
-	  
-	  
-	  // вычисл€ем
-	  switch (oper) {
-	  	case '+':
-	  		System.out.println(val1 + val2);
-	  		break;
-	  	case '-':
-	  		System.out.println(val1 - val2);
-	  		break;
-	  	case '/':
-	  		System.out.println(val1 / val2);
-	  		break;
-	  	case '*':
-	  		System.out.println(val1 * val2);
-	  		break;
-	  	default:
-	  		break;
-	}
 	  
 	  
 	  //char symb = 'a';
@@ -159,4 +73,104 @@ public class MainClass {
 		 */
   }
 
+  
+  public static boolean splitLine(String inLine) {
+	  
+	  int operand_1 = 0; // глобальные
+	  int operand_2 = 0; // глобальные
+	  char matAction = ' ';  // глобальные
+	  	  
+	  if ( inLine.length() == 0) {  // провер€ть до метода - перенести
+		  // выход
+		  
+	  }
+	    
+	  // уберем пробелы 
+	  inLine = inLine.replace(" ", "");
+	  
+	  // ¬ыделим первый операнд и поместим в переменную
+	  boolean chkOperandExist = false;
+	  for (char ch : inLine.toCharArray()) {
+		  if ( Character.isDigit(ch) ) {
+			  operand_1 = Integer.parseInt(String.valueOf(operand_1) + ch);
+			  chkOperandExist = true;
+		  }
+		  else break; // числовой р€д прерван
+	  } 
+	  
+	  System.out.println(operand_1);
+	  
+	  // Ќет первого операнда, ошибка ввода
+	  if ( ! chkOperandExist ) {  
+		  System.out.println("Wrong input first operand !");
+		  return false;
+	  }
+	  
+	  
+	  // ¬ыделим символ математической операции в переменную matAction
+	  int indexOper = 0; // индекс будет нужен дл€ выделени€ второго операнда
+	  for (char ch : inLine.toCharArray()) {
+		  indexOper++;
+		  if ( ! Character.isDigit(ch) ) {
+			  System.out.println(ch);
+			  matAction = ch;
+			  break;
+		  }
+	  } 
+	  
+	  // Ќе введена или ошибочна€ операци€
+	  if (matAction != '-' && matAction != '+' && matAction != '*' && matAction != '/') {
+		  System.out.println("Wrong input math operation command !");
+		  return false;
+	  }
+	  
+	// ¬ыделим второй операнд и поместим в переменную
+	  chkOperandExist = false;
+	  for (int i = indexOper; i < inLine.length(); i++) {
+		  char ch = inLine.charAt(i);
+		  if ( Character.isDigit(ch) ) {
+			  operand_2 = Integer.parseInt(String.valueOf(operand_2) + ch);
+			  chkOperandExist = true;
+		  }
+		  else break; // числовой р€д прерван
+	  }
+	  
+	  System.out.println(operand_2);
+	  
+	  // Ќет второго операнда, ошибка ввода или попытка делени€ на ноль  
+	  if ( ! chkOperandExist ) {  
+		  System.out.println("Wrong input second operand !");
+		  return false;
+	  }
+	  else if (operand_2 == 0 && matAction == '/' ) {  
+		  System.out.println("Cannot be divided by zero !");
+		  return false;
+	  }
+	  
+	  
+	  // вычисл€ем
+	  switch (matAction) {
+	  	case '+':
+	  		System.out.println(operand_1 + operand_2);
+	  		break;
+	  	case '-':
+	  		System.out.println(operand_1 - operand_2);
+	  		break;
+	  	case '/':
+	  		System.out.println(operand_1 / operand_2);
+	  		break;
+	  	case '*':
+	  		System.out.println(operand_1 * operand_2);
+	  		break;
+	  	default:
+	  		break;
+	}
+	  
+	  
+	 return true;
+	  
+	  
+  }
+  
+  
 }
